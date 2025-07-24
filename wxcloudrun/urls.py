@@ -19,6 +19,7 @@ from django.conf.urls import url
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views_drf import NoteViewSet, CategoryViewSet
+from .views_auth import WxLoginView, UserProfileView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -32,6 +33,10 @@ router.register(r'categories', CategoryViewSet)
 urlpatterns = [
     # 计数器接口（保留原始接口）
     url(r'^api/count(/)?$', views.counter),
+    
+    # 微信认证接口
+    path('api/wx/login', WxLoginView.as_view(), name='wx_login'),
+    path('api/user/profile', UserProfileView.as_view(), name='user_profile'),
     
     # DRF API接口 - 将DRF API路由放在前面并加上api前缀
     path('api/', include(router.urls)),

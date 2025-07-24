@@ -223,7 +223,16 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.FormParser',
         'rest_framework.parsers.MultiPartParser',
     ],
+    # 添加认证类
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'wxcloudrun.auth.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
 }
+
+# 微信小程序配置
+WX_APP_ID = os.environ.get('WX_APP_ID', 'wxcb42bf73fbe28074')  # 从环境变量读取或设置默认值
+WX_APP_SECRET = os.environ.get('WX_APP_SECRET', 'wxcb42bf73fbe28074')
 
 # CORS配置
 CORS_ALLOW_ALL_ORIGINS = True  # 在开发环境中允许所有来源

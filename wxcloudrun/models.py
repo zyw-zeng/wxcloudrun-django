@@ -17,6 +17,26 @@ class Counters(models.Model):
     class Meta:
         db_table = 'Counters'  # 数据库表名
 
+class WxUser(models.Model):
+    """微信用户模型"""
+    openid = models.CharField(max_length=100, unique=True, verbose_name='微信openid')
+    nickname = models.CharField(max_length=100, blank=True, null=True, verbose_name='昵称')
+    avatar_url = models.URLField(blank=True, null=True, verbose_name='头像URL')
+    gender = models.SmallIntegerField(choices=((0, '未知'), (1, '男'), (2, '女')), default=0, verbose_name='性别')
+    session_key = models.CharField(max_length=100, blank=True, null=True, verbose_name='会话密钥')
+    last_login = models.DateTimeField(blank=True, null=True, verbose_name='最后登录时间')
+    is_active = models.BooleanField(default=True, verbose_name='是否活跃')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='更新时间')
+
+    def __str__(self):
+        return self.nickname or self.openid
+    
+    class Meta:
+        db_table = 'wx_user'
+        verbose_name = '微信用户'
+        verbose_name_plural = '微信用户'
+
 class Category(models.Model):
     name = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -37,6 +57,7 @@ class Note(models.Model):
     title = models.CharField(max_length=100, verbose_name='标题')
     content = models.TextField(verbose_name='内容')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='分类')
+    user = models.ForeignKey(WxUser, on_delete=models.CASCADE, null=True, related_name='notes', verbose_name='用户')
     attachment = models.FileField(upload_to=note_attachment_path, null=True, blank=True, verbose_name='附件')
     attachment_name = models.CharField(max_length=255, null=True, blank=True, verbose_name='附件名称')
     attachment_type = models.CharField(max_length=50, null=True, blank=True, verbose_name='附件类型')
