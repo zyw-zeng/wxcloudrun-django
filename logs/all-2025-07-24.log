@@ -7,3 +7,13 @@
 [2025-07-24 17:00:30,626] [autoreload.py:637] [autoreload:run_with_reloader] [INFO]- Watching for file changes with StatReloader
 [2025-07-24 17:00:46,539] [autoreload.py:251] [autoreload:trigger_reload] [INFO]- E:\dj\wxcloudrun-django\wxcloudrun\urls.py changed, reloading.
 [2025-07-24 17:00:47,063] [autoreload.py:637] [autoreload:run_with_reloader] [INFO]- Watching for file changes with StatReloader
+[2025-07-24 17:18:42,566] [autoreload.py:637] [autoreload:run_with_reloader] [INFO]- Watching for file changes with StatReloader
+[2025-07-24 17:19:37,584] [autoreload.py:251] [autoreload:trigger_reload] [INFO]- E:\dj\wxcloudrun-django\wxcloudrun\urls.py changed, reloading.
+[2025-07-24 17:19:38,171] [autoreload.py:637] [autoreload:run_with_reloader] [INFO]- Watching for file changes with StatReloader
+[2025-07-24 17:26:56,591] [autoreload.py:637] [autoreload:run_with_reloader] [INFO]- Watching for file changes with StatReloader
+[2025-07-24 17:29:30,596] [autoreload.py:637] [autoreload:run_with_reloader] [INFO]- Watching for file changes with StatReloader
+[2025-07-24 17:31:29,372] [basehttp.py:161] [basehttp:log_message] [INFO]- "GET / HTTP/1.1" 200 10199
+[2025-07-24 17:32:05,825] [basehttp.py:161] [basehttp:log_message] [INFO]- "GET /api/notes/ HTTP/1.1" 200 10199
+[2025-07-24 17:33:14,179] [autoreload.py:251] [autoreload:trigger_reload] [INFO]- E:\dj\wxcloudrun-django\wxcloudrun\urls.py changed, reloading.
+[2025-07-24 17:33:14,681] [autoreload.py:637] [autoreload:run_with_reloader] [INFO]- Watching for file changes with StatReloader
+[2025-07-24 17:37:29,446] [basehttp.py:161] [basehttp:log_message] [INFO]- "GET /api/notes/ HTTP/1.1" 200 52

@@ -24,18 +24,17 @@ from django.conf.urls.static import static
 
 # 创建DRF路由器
 router = DefaultRouter()
-router.register(r'api/notes', NoteViewSet)
-router.register(r'api/categories', CategoryViewSet)
+# 修改路由前缀，避免与通配符冲突
+router.register(r'notes', NoteViewSet)
+router.register(r'categories', CategoryViewSet)
 
-urlpatterns = (
+# 将urlpatterns修改为列表而不是元组
+urlpatterns = [
     # 计数器接口（保留原始接口）
-    url(r'^^api/count(/)?$', views.counter),
-
-    # 获取主页
-    url(r'(/)?$', views.index),
+    url(r'^api/count(/)?$', views.counter),
     
-    # DRF API接口
-    path('', include(router.urls)),
+    # DRF API接口 - 将DRF API路由放在前面并加上api前缀
+    path('api/', include(router.urls)),
     
     # DRF认证支持
     path('api-auth/', include('rest_framework.urls')),
@@ -51,7 +50,10 @@ urlpatterns = (
     path('api/category/create', views.category_create),
     path('api/category/update/<int:category_id>', views.category_update),
     path('api/category/delete/<int:category_id>', views.category_delete),
-)
+    
+    # 获取主页 - 将通配符放在最后
+    url(r'^(/)?$', views.index),
+]
 
 # 仅在DEBUG模式下添加媒体文件访问URL
 if settings.DEBUG and not settings.USE_COS:
