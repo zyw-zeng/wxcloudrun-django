@@ -68,17 +68,33 @@ WSGI_APPLICATION = 'wxcloudrun.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get("MYSQL_DATABASE", 'xcx'),
-        'USER': os.environ.get("MYSQL_USERNAME", 'root'),
-        'HOST': os.environ.get("MYSQL_ADDRESS", '127.0.0.1:3306').split(':')[0],
-        'PORT': os.environ.get("MYSQL_ADDRESS", '127.0.0.1:3306').split(':')[1],
-        'PASSWORD': os.environ.get("MYSQL_PASSWORD", 'admin123'),
-        'OPTIONS': {'charset': 'utf8mb4'},
+# 检查是否存在环境变量，决定使用本地或线上数据库配置
+if os.environ.get('MYSQL_USERNAME'):
+    # 线上环境使用环境变量
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.environ.get("MYSQL_DATABASE", 'django_demo'),
+            'USER': os.environ.get("MYSQL_USERNAME"),
+            'HOST': os.environ.get("MYSQL_ADDRESS").split(':')[0],
+            'PORT': os.environ.get("MYSQL_ADDRESS").split(':')[1],
+            'PASSWORD': os.environ.get("MYSQL_PASSWORD"),
+            'OPTIONS': {'charset': 'utf8mb4'},
+        }
     }
-}
+else:
+    # 本地开发环境
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'django_demo',     # 数据库名称
+            'USER': 'root',            # 数据库用户名
+            'PASSWORD': '123456',      # 数据库密码
+            'HOST': '127.0.0.1',       # 数据库主机，本地使用127.0.0.1
+            'PORT': '3306',            # 数据库端口
+            'OPTIONS': {'charset': 'utf8mb4'},
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -216,3 +232,25 @@ CORS_ALLOW_ALL_ORIGINS = True  # 在开发环境中允许所有来源
 #     "https://example.com",
 #     "https://sub.example.com",
 # ]
+
+# 腾讯云COS配置
+USE_COS = bool(os.environ.get('COS_BUCKET', ''))
+
+if USE_COS:
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    
+    # COS 配置
+    AWS_STORAGE_BUCKET_NAME = os.environ.get('COS_BUCKET')
+    AWS_S3_REGION_NAME = os.environ.get('COS_REGION')
+    AWS_S3_ENDPOINT_URL = f'https://cos.{AWS_S3_REGION_NAME}.myqcloud.com'
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.cos.{AWS_S3_REGION_NAME}.myqcloud.com'
+    AWS_DEFAULT_ACL = 'public-read'
+    AWS_QUERYSTRING_AUTH = False
+    AWS_S3_ADDRESSING_STYLE = 'virtual'
+    
+    # 媒体文件路径
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
+else:
+    # 本地存储配置
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = '/media/'

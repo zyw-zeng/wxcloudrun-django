@@ -1,1 +1,9 @@
 [2025-07-24 16:43:00,231] [autoreload.py:637] [autoreload:run_with_reloader] [INFO]- Watching for file changes with StatReloader
+[2025-07-24 16:59:47,869] [autoreload.py:251] [autoreload:trigger_reload] [INFO]- E:\dj\wxcloudrun-django\wxcloudrun\settings.py changed, reloading.
+[2025-07-24 16:59:48,377] [autoreload.py:637] [autoreload:run_with_reloader] [INFO]- Watching for file changes with StatReloader
+[2025-07-24 17:00:14,702] [autoreload.py:251] [autoreload:trigger_reload] [INFO]- E:\dj\wxcloudrun-django\wxcloudrun\models.py changed, reloading.
+[2025-07-24 17:00:15,207] [autoreload.py:637] [autoreload:run_with_reloader] [INFO]- Watching for file changes with StatReloader
+[2025-07-24 17:00:30,113] [autoreload.py:251] [autoreload:trigger_reload] [INFO]- E:\dj\wxcloudrun-django\wxcloudrun\serializers.py changed, reloading.
+[2025-07-24 17:00:30,626] [autoreload.py:637] [autoreload:run_with_reloader] [INFO]- Watching for file changes with StatReloader
+[2025-07-24 17:00:46,539] [autoreload.py:251] [autoreload:trigger_reload] [INFO]- E:\dj\wxcloudrun-django\wxcloudrun\urls.py changed, reloading.
+[2025-07-24 17:00:47,063] [autoreload.py:637] [autoreload:run_with_reloader] [INFO]- Watching for file changes with StatReloader

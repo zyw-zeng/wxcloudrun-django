@@ -19,6 +19,8 @@ from django.conf.urls import url
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views_drf import NoteViewSet, CategoryViewSet
+from django.conf import settings
+from django.conf.urls.static import static
 
 # 创建DRF路由器
 router = DefaultRouter()
@@ -50,3 +52,7 @@ urlpatterns = (
     path('api/category/update/<int:category_id>', views.category_update),
     path('api/category/delete/<int:category_id>', views.category_delete),
 )
+
+# 仅在DEBUG模式下添加媒体文件访问URL
+if settings.DEBUG and not settings.USE_COS:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
